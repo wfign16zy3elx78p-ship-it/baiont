@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+bool KiemTraSoDoiXung(int n) {
+  int SoGoc = n;
+  int SoDaoNguoc = 0;
+
+  while (n > 0) {
+    int SoCuoi = n % 10; //lay so cuoi
+    SoDaoNguoc = SoDaoNguoc * 10 + SoCuoi; //chen vao so dao nguoc
+    n /= 10; //xoa so cuoi
+  }
+  return SoGoc == SoDaoNguoc;
+
+}
+int main() {
+  int So;
+  cout << "nhap so nguyen";
+  cin >> So;
+  if (So < 0) {
+    cout << "vui long nhap lai so phu hop" << endl;
+    return 0;
+  }
+  if (KiemTraSoDoiXung(So)) {
+    cout << So << "la so doi xung " << endl;
+  } else {
+    cout << So << "so khong doi xung" << endl;
+
+  }
+  return 0;
+}
