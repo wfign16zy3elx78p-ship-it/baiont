@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+#include <algorithm> // để dùng sort
+using namespace std;
+
+// a) Định nghĩa struct SV
+struct Diem {
+    float toan;
+    float ly;
+    float hoa;
+};
+
+struct SV {
+    string mssv;
+    string hoten;
+    Diem diem;
+};
+
+// Hàm so sánh để sắp xếp (giảm dần)
+bool soSanhTheoDiem(const SV &a, const SV &b) {
+    // 1. So sánh điểm Toán
+    if (a.diem.toan != b.diem.toan) {
+        return a.diem.toan > b.diem.toan; // Toán cao hơn đứng trước
+    }
+    // 2. Nếu Toán bằng → so sánh Hóa
+    if (a.diem.hoa != b.diem.hoa) {
+        return a.diem.hoa > b.diem.hoa; // Hóa cao hơn đứng trước
+    }
+    // 3. Nếu Hóa cũng bằng → so sánh Lý
+    return a.diem.ly > b.diem.ly; // Lý cao hơn đứng trước
+}
+
+// Hàm nhập 1 sinh viên
+void nhapSV(SV &sv) {
+    cout << "Nhap MSSV: ";
+    getline(cin, sv.mssv);
+    cout << "Nhap ho ten: ";
+    getline(cin, sv.hoten);
+    cout << "Nhap diem Toan, Ly, Hoa: ";
+    cin >> sv.diem.toan >> sv.diem.ly >> sv.diem.hoa;
+    cin.ignore(); // xóa bộ đệm sau khi nhập số
+}
+
+// Hàm in 1 sinh viên
+void inSV(const SV &sv) {
+    cout << "MSSV: " << sv.mssv
+         << " | Ho ten: " << sv.hoten
+         << " | Toan: " << sv.diem.toan
+         << " | Ly: " << sv.diem.ly
+         << " | Hoa: " << sv.diem.hoa << endl;
+}
+
+// Hàm chính
+int main() {
+    int n;
+    cout << "Nhap so luong sinh vien: ";
+    cin >> n;
+    cin.ignore(); // xóa bộ đệm sau khi nhập n
+
+    SV ds[100]; // mảng tối đa 100 sinh viên
+
+    // Nhập danh sách
+    for (int i = 0; i < n; i++) {
+        cout << "\nNhap sinh vien thu " << i + 1 << ":\n";
+        nhapSV(ds[i]);
+    }
+
+    // b) Sắp xếp theo yêu cầu
+    sort(ds, ds + n, soSanhTheoDiem);
+
+    // In kết quả sau sắp xếp
+    cout << "\n=== DANH SACH SAU KHI SAP XEP ===\n";
+    for (int i = 0; i < n; i++) {
+        inSV(ds[i]);
+    }
+
+    return 0;
+}
