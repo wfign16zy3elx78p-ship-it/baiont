@@ -1,0 +1,102 @@
+#include <iostream>
+
+using namespace std;
+
+// Nhập mảng
+void nhapMang(int a[], int n) {
+  cout << "Nhap " << n << " so nguyen:\n";
+  for (int i = 0; i < n; i++) {
+    cout << "a[" << i << "] = ";
+    cin >> a[i];
+  }
+}
+
+// Xuất mảng
+void xuatMang(int a[], int n) {
+  cout << "Mang vua nhap: ";
+  for (int i = 0; i < n; i++) {
+    cout << a[i] << " ";
+  }
+  cout << endl;
+}
+
+int Tong(int a[], int n) {
+  int tong = 0;
+  for (int i = 0; i < n; i++) {
+    tong += a[i];
+  }
+  return tong;
+}
+
+int Hieu(int a[], int n) {
+  if (n == 0) return 0;
+  int hieu = a[0];
+  for (int i = 1; i < n; i++) { // SỬA: i=1
+    hieu = hieu - a[i];
+  }
+  return hieu;
+}
+
+int Tich(int a[], int n) {
+  int tich = 1;
+  for (int i = 0; i < n; i++) { // SỬA: i=0
+    tich = tich * a[i];
+  }
+  return tich;
+}
+
+float Thuong(int a[], int n) { // SỬA: trả về float
+  if (n == 0) return 0;
+  float thuong = a[0];
+  for (int i = 1; i < n; i++) { // SỬA: i=1
+    if (a[i] == 0) { // SỬA: kiểm tra a[i]
+      cout << "Khong the chia cho 0!\n";
+      return -1;
+    }
+    thuong = thuong / a[i];
+  }
+  return thuong;
+}
+
+bool KTSNT(int n) {
+  if (n < 2) return false;
+  if (n == 2) return true;
+  if (n % 2 == 0) return false;
+  for (int i = 3; i * i <= n; i += 2) {
+    if (n % i == 0) // SỬA: == 0, không phải 00
+      return false;
+  }
+  return true;
+}
+
+void InSNT(int a[], int n) {
+  cout << "Cac so nguyen to trong mang: ";
+  bool coSo = false;
+  for (int i = 0; i < n; i++) {
+    if (KTSNT(a[i])) {
+      cout << a[i] << " ";
+      coSo = true;
+    }
+  }
+  if (!coSo) {
+    cout << "khong co";
+  }
+  cout << endl;
+}
+
+int main() {
+  int a[100];
+  int n;
+  cout << "Nhap n: "; // THÊM DÒNG NÀY!
+  cin >> n;
+
+  nhapMang(a, n);
+  xuatMang(a, n);
+  cout << "so snt:" << endl;
+  InSNT(a, n);
+  cout << "Tong: " << Tong(a, n) << endl;
+  cout << "Hieu: " << Hieu(a, n) << endl;
+  cout << "Tich: " << Tich(a, n) << endl;
+  cout << "thuong" << Thuong(a, n) << endl;
+  return 0;
+}
